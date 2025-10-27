@@ -13,5 +13,12 @@ class UserCreateApiView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         user = serializer.save(is_active=True)
-        user.set_password(user.password())
+        user.set_password(user.password)
         user.save()
+
+
+class UserListApiView(generics.ListAPIView):
+    """Класс реализует интерфейс для просмотра пользователей"""
+
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
