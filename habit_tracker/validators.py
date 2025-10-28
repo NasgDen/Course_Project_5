@@ -30,6 +30,16 @@ class AssociatedRewardValidator:
     """
 
     def __call__(self, value):
-        print(value)
         if dict(value).get("associated_habit") is not None and dict(value).get("reward") is not None:
             raise ValidationError("Нельзя одновременно выбрать связанную привычку и вознаграждение")
+
+
+class IsPleasantValidator:
+    """
+    Класс реализует валидацию поля is_pleasant модели Habit
+    """
+
+    def __call__(self, value):
+        print("is_pleasant_habit: ", bool(dict(value).get("is_pleasant_habit")))
+        if bool(dict(value).get("is_pleasant_habit")) and (dict(value).get("associated_habit") is not None or dict(value).get("reward") is not None):
+            raise ValidationError("У приятной привычки не может быть вознаграждения или связанной привычки.")
