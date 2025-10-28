@@ -40,7 +40,7 @@ class Habit(models.Model):
         verbose_name="Периодичность", help_text="Укажите переодичность", default=1
     )
     reward = models.CharField(max_length=150, verbose_name="Вознаграждение", help_text="Укажите вознаграждение")
-    time_complete = models.TimeField(verbose_name="Время на выполнение", help_text="Укажите время на выполнение")
+    time_complete = models.DurationField(verbose_name="Время на выполнение в секундах", help_text="Укажите время на выполнение в секундах")
     is_publish = models.BooleanField(verbose_name="Признак публичности", help_text="Укажите признак публичности")
 
     class Meta:
