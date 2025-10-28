@@ -2,6 +2,7 @@ from datetime import timedelta
 
 from rest_framework.serializers import ValidationError
 
+
 class TimeValidator:
     """Класс реализует валидацию поля time_complete модели Habit"""
 
@@ -41,5 +42,7 @@ class IsPleasantValidator:
 
     def __call__(self, value):
         print("is_pleasant_habit: ", bool(dict(value).get("is_pleasant_habit")))
-        if bool(dict(value).get("is_pleasant_habit")) and (dict(value).get("associated_habit") is not None or dict(value).get("reward") is not None):
+        if bool(dict(value).get("is_pleasant_habit")) and (
+            dict(value).get("associated_habit") is not None or dict(value).get("reward") is not None
+        ):
             raise ValidationError("У приятной привычки не может быть вознаграждения или связанной привычки.")

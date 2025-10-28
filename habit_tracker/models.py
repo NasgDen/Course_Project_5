@@ -39,8 +39,12 @@ class Habit(models.Model):
     periodicity = models.PositiveIntegerField(
         verbose_name="Периодичность", help_text="Укажите периодичность", default=1
     )
-    reward = models.CharField(max_length=150, verbose_name="Вознаграждение", help_text="Укажите вознаграждение", blank=True, null=True)
-    time_complete = models.DurationField(verbose_name="Время на выполнение в секундах", help_text="Укажите время на выполнение в секундах")
+    reward = models.CharField(
+        max_length=150, verbose_name="Вознаграждение", help_text="Укажите вознаграждение", blank=True, null=True
+    )
+    time_complete = models.DurationField(
+        verbose_name="Время на выполнение в секундах", help_text="Укажите время на выполнение в секундах"
+    )
     is_publish = models.BooleanField(verbose_name="Признак публичности", help_text="Укажите признак публичности")
 
     class Meta:
