@@ -24,3 +24,12 @@ class PeriodicityValidator:
             raise ValidationError("Нельзя выполнять привычку реже, чем 1 раз в 7 дней.")
 
 
+class AssociatedRewardValidator:
+    """
+    Класс реализует валидацию - Исключить одновременный выбор связанной привычки и указания вознаграждения модели Habit
+    """
+
+    def __call__(self, value):
+        print(value)
+        if dict(value).get("associated_habit") is not None and dict(value).get("reward") is not None:
+            raise ValidationError("Нельзя одновременно выбрать связанную привычку и вознаграждение")
