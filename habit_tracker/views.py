@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework import generics
 
 from habit_tracker.models import Habit
+from habit_tracker.pagination import HabitPagination
 from habit_tracker.serializers import HabitSerializer
 
 
@@ -22,6 +23,7 @@ class HabitListApiView(generics.ListAPIView):
 
     queryset = Habit.objects.all()
     serializer_class = HabitSerializer
+    pagination_class = HabitPagination
 
 
 class HabitUpdateApiView(generics.UpdateAPIView):
