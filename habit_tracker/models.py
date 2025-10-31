@@ -29,8 +29,9 @@ class Habit(models.Model):
     is_pleasant_habit = models.BooleanField(
         verbose_name="Признак приятной привычки", help_text="Укажите признак приятной привычки", default=False
     )
-    associated_habit = models.CharField(
-        max_length=150,
+    associated_habit = models.ForeignKey(
+        "self",
+        on_delete=models.SET_NULL,
         verbose_name="Связанная привычка",
         help_text="Укажите связанную привычку",
         blank=True,

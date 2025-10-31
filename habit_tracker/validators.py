@@ -10,8 +10,10 @@ class TimeValidator:
         self.field = field
 
     def __call__(self, value):
-        if dict(value).get(self.field) > timedelta(seconds=120):
-            raise ValidationError("Время выполнения должно быть не больше 120 секунд.")
+        print('Время:', dict(value).get(self.field))
+        if dict(value).get(self.field) is not None:
+            if dict(value).get(self.field) > timedelta(seconds=120):
+                raise ValidationError("Время выполнения должно быть не больше 120 секунд.")
 
 
 class PeriodicityValidator:
@@ -21,8 +23,9 @@ class PeriodicityValidator:
         self.field = field
 
     def __call__(self, value):
-        if dict(value).get(self.field) > 7:
-            raise ValidationError("Нельзя выполнять привычку реже, чем 1 раз в 7 дней.")
+        if dict(value).get(self.field) is not None:
+            if dict(value).get(self.field) > 7:
+                raise ValidationError("Нельзя выполнять привычку реже, чем 1 раз в 7 дней.")
 
 
 class AssociatedRewardValidator:
@@ -40,9 +43,27 @@ class IsPleasantValidator:
     Класс реализует валидацию поля is_pleasant модели Habit
     """
 
+    def __init__(self, field):
+        self.field = field
+
     def __call__(self, value):
-        print("is_pleasant_habit: ", bool(dict(value).get("is_pleasant_habit")))
-        if bool(dict(value).get("is_pleasant_habit")) and (
+        print(dict(value).get("associated_habit"))
+        if bool(dict(value).get(self.field)) and (
             dict(value).get("associated_habit") is not None or dict(value).get("reward") is not None
         ):
             raise ValidationError("У приятной привычки не может быть вознаграждения или связанной привычки.")
+
+
+class AssociatedHabitValid:
+    """
+    В связанные привычки могут попадать только привычки с признаком приятной привычки.
+    """
+
+    def __init__(self, field):
+        self.field = field
+
+    def __call__(self, value):
+        if dict(value).get("associated_habit") is not None:
+            associated_habit = dict(value).get("associated_habit")
+            if associated_habit.is_pleasant_habit == False:
+                raise ValidationError("В связанные привычки могут попадать только привычки с признаком приятной привычки.")
