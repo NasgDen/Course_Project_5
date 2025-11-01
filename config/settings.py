@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     "habit_tracker",
     "users",
     "rest_framework_simplejwt",
+    "django_celery_beat",
 ]
 
 MIDDLEWARE = [
@@ -115,3 +116,7 @@ SIMPLE_JWT = {
 
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 TELEGRAM_URL = "https://api.telegram.org/bot"
+
+CELERY_TIMEZONE = TIME_ZONE
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
