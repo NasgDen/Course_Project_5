@@ -55,3 +55,14 @@ class HabitDeleteAPIView(generics.DestroyAPIView):
     queryset = Habit.objects.all()
     serializer_class = HabitSerializer
     permission_classes = [IsOwner]
+
+
+class HabitPublishListApiView(generics.ListAPIView):
+    """Класс реализует интерфейс для вывода публичных привычек"""
+
+    queryset = Habit.objects.all()
+    serializer_class = HabitSerializer
+
+    def get_queryset(self):
+        queryset = Habit.objects.filter(is_publish=True)
+        return queryset

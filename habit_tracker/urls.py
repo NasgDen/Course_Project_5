@@ -1,7 +1,8 @@
 from django.urls import path
 
 from .apps import HabitTrackerConfig
-from .views import HabitCreateApiView, HabitDeleteAPIView, HabitListApiView, HabitRetrieveAPIView, HabitUpdateApiView
+from .views import HabitCreateApiView, HabitDeleteAPIView, HabitListApiView, HabitRetrieveAPIView, HabitUpdateApiView, \
+    HabitPublishListApiView
 
 app_name = HabitTrackerConfig.name
 
@@ -11,4 +12,5 @@ urlpatterns = [
     path("update/<int:pk>/", HabitUpdateApiView.as_view(), name="habit_update"),
     path("retrieve/<int:pk>/", HabitRetrieveAPIView.as_view(), name="habit_retrieve"),
     path("delete/<int:pk>/", HabitDeleteAPIView.as_view(), name="habit_delete"),
+    path("publish_list/", HabitPublishListApiView.as_view(), name="habit_publish"),
 ]
