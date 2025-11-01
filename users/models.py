@@ -11,10 +11,10 @@ class User(AbstractUser):
     )
     city = models.CharField(max_length=50, verbose_name="Город", help_text="Введите город", blank=True, null=True)
     avatar = models.ImageField(upload_to="users/avatar/", blank=True, null=True)
-    tg_token = models.CharField(
+    tg_chat_id = models.CharField(
         max_length=150,
-        verbose_name="Токен телеграмм",
-        help_text="Введите токен пользователя в телеграм",
+        verbose_name="Телеграмм chat-id",
+        help_text="Введите телеграмм chat-id",
         blank=True,
         null=True,
     )
