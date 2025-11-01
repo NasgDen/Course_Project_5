@@ -38,7 +38,7 @@ class HabitUpdateApiView(generics.UpdateAPIView):
 
     queryset = Habit.objects.all()
     serializer_class = HabitSerializer
-    pagination_class = [IsOwner]
+    permission_classes = [IsOwner]
 
 
 class HabitRetrieveAPIView(generics.RetrieveAPIView):
@@ -46,7 +46,7 @@ class HabitRetrieveAPIView(generics.RetrieveAPIView):
 
     queryset = Habit.objects.all()
     serializer_class = HabitSerializer
-    pagination_class = [IsOwner]
+    permission_classes = [IsOwner]
 
 
 class HabitDeleteAPIView(generics.DestroyAPIView):
@@ -54,4 +54,4 @@ class HabitDeleteAPIView(generics.DestroyAPIView):
 
     queryset = Habit.objects.all()
     serializer_class = HabitSerializer
-    pagination_class = [IsOwner]
+    permission_classes = [IsOwner]
