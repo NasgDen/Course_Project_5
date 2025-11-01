@@ -1,8 +1,10 @@
+from django.db.models import Q
 from django.shortcuts import render
 from rest_framework import generics
 
 from habit_tracker.models import Habit
 from habit_tracker.pagination import HabitPagination
+from habit_tracker.permissions import IsOwner
 from habit_tracker.serializers import HabitSerializer
 
 
@@ -26,11 +28,17 @@ class HabitListApiView(generics.ListAPIView):
     pagination_class = HabitPagination
 
 
+    def get_queryset(self):
+        queryset = Habit.objects.filter(Q(owner=self.request.user) |  Q(is_publish=True))
+        return queryset
+
+
 class HabitUpdateApiView(generics.UpdateAPIView):
     """Класс реализует интерфейс для изменения данных о привычки"""
 
     queryset = Habit.objects.all()
     serializer_class = HabitSerializer
+    pagination_class = [IsOwner]
 
 
 class HabitRetrieveAPIView(generics.RetrieveAPIView):
@@ -38,6 +46,7 @@ class HabitRetrieveAPIView(generics.RetrieveAPIView):
 
     queryset = Habit.objects.all()
     serializer_class = HabitSerializer
+    pagination_class = [IsOwner]
 
 
 class HabitDeleteAPIView(generics.DestroyAPIView):
@@ -45,3 +54,4 @@ class HabitDeleteAPIView(generics.DestroyAPIView):
 
     queryset = Habit.objects.all()
     serializer_class = HabitSerializer
+    pagination_class = [IsOwner]
