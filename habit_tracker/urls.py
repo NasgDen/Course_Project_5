@@ -1,8 +1,8 @@
 from django.urls import path
 
 from .apps import HabitTrackerConfig
-from .views import HabitCreateApiView, HabitDeleteAPIView, HabitListApiView, HabitRetrieveAPIView, HabitUpdateApiView, \
-    HabitPublishListApiView
+from .views import (HabitCreateApiView, HabitDeleteAPIView, HabitListApiView, HabitPublishListApiView,
+                    HabitRetrieveAPIView, HabitUpdateApiView)
 
 app_name = HabitTrackerConfig.name
 

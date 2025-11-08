@@ -1,5 +1,4 @@
 from django.db.models import Q
-from django.shortcuts import render
 from rest_framework import generics
 
 from habit_tracker.models import Habit
@@ -7,9 +6,6 @@ from habit_tracker.pagination import HabitPagination
 from habit_tracker.permissions import IsOwner
 from habit_tracker.serializers import HabitSerializer
 from habit_tracker.services import add_task_habit
-
-
-# from habit_tracker.tasks import send_message_habit
 
 
 class HabitCreateApiView(generics.CreateAPIView):
@@ -32,9 +28,8 @@ class HabitListApiView(generics.ListAPIView):
     serializer_class = HabitSerializer
     pagination_class = HabitPagination
 
-
     def get_queryset(self):
-        queryset = Habit.objects.filter(Q(owner=self.request.user) |  Q(is_publish=True))
+        queryset = Habit.objects.filter(Q(owner=self.request.user) | Q(is_publish=True))
         return queryset
 
 

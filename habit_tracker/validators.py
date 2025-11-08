@@ -10,7 +10,7 @@ class TimeValidator:
         self.field = field
 
     def __call__(self, value):
-        print('Время:', dict(value).get(self.field))
+        print("Время:", dict(value).get(self.field))
         if dict(value).get(self.field) is not None:
             if dict(value).get(self.field) > timedelta(seconds=120):
                 raise ValidationError("Время выполнения должно быть не больше 120 секунд.")
@@ -65,5 +65,7 @@ class AssociatedHabitValid:
     def __call__(self, value):
         if dict(value).get("associated_habit") is not None:
             associated_habit = dict(value).get("associated_habit")
-            if associated_habit.is_pleasant_habit == False:
-                raise ValidationError("В связанные привычки могут попадать только привычки с признаком приятной привычки.")
+            if not associated_habit.is_pleasant_habit:
+                raise ValidationError(
+                    "В связанные привычки могут попадать только привычки с признаком приятной привычки."
+                )

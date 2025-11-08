@@ -13,4 +13,3 @@ class HabitAdmin(admin.ModelAdmin):
         "tg_chat_id",
     )
     list_filter = ("email",)
-
