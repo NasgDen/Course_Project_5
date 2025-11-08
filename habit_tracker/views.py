@@ -6,7 +6,10 @@ from habit_tracker.models import Habit
 from habit_tracker.pagination import HabitPagination
 from habit_tracker.permissions import IsOwner
 from habit_tracker.serializers import HabitSerializer
-from habit_tracker.tasks import send_message_habit
+from habit_tracker.services import add_task_habit
+
+
+# from habit_tracker.tasks import send_message_habit
 
 
 class HabitCreateApiView(generics.CreateAPIView):
@@ -19,6 +22,7 @@ class HabitCreateApiView(generics.CreateAPIView):
         habit = serializer.save()
         habit.owner = self.request.user
         habit.save()
+        add_task_habit(habit)
 
 
 class HabitListApiView(generics.ListAPIView):
@@ -30,7 +34,6 @@ class HabitListApiView(generics.ListAPIView):
 
 
     def get_queryset(self):
-        send_message_habit()
         queryset = Habit.objects.filter(Q(owner=self.request.user) |  Q(is_publish=True))
         return queryset
 
