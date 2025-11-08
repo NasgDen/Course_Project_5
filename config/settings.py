@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     "users",
     "rest_framework_simplejwt",
     "django_celery_beat",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
@@ -36,6 +37,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -124,11 +126,12 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
 CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND")
 
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8000',
+]
 
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8000',
+]
 
-# CELERY_BEAT_SCHEDULE = {
-#     "check_users_by_last_login_date": {
-#         "task": "habit_tracker.tasks.send_telegram",
-#         "schedule": timedelta(seconds=30),
-#     },
-# }
+CORS_ALLOW_ALL_ORIGINS = False
