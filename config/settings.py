@@ -131,14 +131,14 @@ CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
 CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND")
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8000",
+    os.getenv("CORS_ALLOWED_ORIGINS"),
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:8000",
+    os.getenv("CSRF_TRUSTED_ORIGINS"),
 ]
 
-CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOW_ALL_ORIGINS = os.getenv("CORS_ALLOW_ALL_ORIGINS", False) == "True"
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "API Healthy Habits Tracker",
@@ -146,3 +146,4 @@ SPECTACULAR_SETTINGS = {
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
 }
+
