@@ -84,7 +84,7 @@ services:
     env_file:
       - .env
     environment:
-      - CELERY_BROKER_URL=CELERY_BROKER_URL
+      - CELERY_BROKER_URL=${CELERY_BROKER_URL}
     networks:
       - default
 
@@ -98,7 +98,7 @@ services:
       redis:
         condition: service_healthy
     environment:
-      - CELERY_BROKER_URL=CELERY_BROKER_URL
+      - CELERY_BROKER_URL=${CELERY_BROKER_URL}
     networks:
       - default
 
