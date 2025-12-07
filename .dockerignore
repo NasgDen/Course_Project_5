@@ -1,0 +1,6 @@
+/htmlcov
+.idea
+.git
+.flake8
+.coverage
+.env.sample
